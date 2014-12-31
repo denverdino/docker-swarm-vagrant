@@ -33,9 +33,22 @@ Run the Swarm manager (please change the token)
 
 	swarm manage  --discovery token://680b0b72274e2e8c48bcedc05ce54afd -H 127.0.0.1:4243 
 
+
+# Fig template on Docker Swarm
+
 Try the Fig (please get the latest Fig from [https://github.com/denverdino/fig][3])
 
- 
+
+```
+export DOCKER_HOST=127.0.0.1:4243
+docker info
+fig up -d
+fig ps
+fig scale web=2
+fig ps
+docker ps
+```
+
 
 
 # References
