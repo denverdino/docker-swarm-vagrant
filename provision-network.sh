@@ -43,7 +43,7 @@ TYPE=Bridge
 BOOTPROTO=static
 IPADDR=${BRIDGE_ADDRESS}
 NETMASK=${BRIDGE_NETMASK}
-STP=yes
+STP=no
 EOF
 
 # add the ovs bridge ifcfg file
