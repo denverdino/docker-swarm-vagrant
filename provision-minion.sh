@@ -11,8 +11,6 @@ SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
 
 #echo "proxy=http://9.187.160.169:80" >> /etc/yum.conf
 
-#sysctl -w net.ipv6.conf.all.disable_ipv6=1
-
 if ! which docker >/dev/null 2>&1; then
 	yum -y install docker-io
 	service docker stop
@@ -28,7 +26,9 @@ if ! which brctl >/dev/null 2>&1; then
 	yum -y install bridge-utils
 fi
 
-yum -y install iptables-services
+if ! which iptables >/dev/null 2>&1; then	
+	yum -y install iptables-services
+fi
 
 # run the networking setup
 "${SCRIPT_ROOT}/provision-network.sh" $@
@@ -42,4 +42,4 @@ systemctl restart network.service || true
 service docker restart
 docker version
 cp /vagrant/swarm /usr/bin/swarm
-nohup swarm join ./swarm join --discovery token://$TOKEN --addr $MINION_IP:2375 &
+nohup swarm join token://$TOKEN --addr $MINION_IP:2375 &
