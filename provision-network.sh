@@ -107,8 +107,7 @@ grep -q kbr0 /etc/sysconfig/docker || {
   ovs-vsctl set Bridge ${OVS_SWITCH} stp_enable=true
 
   # modify the docker service file such that it uses the kube docker bridge and not its own
-  #echo "OPTIONS=-b=kbr0 --iptables=false --selinux-enabled" > /etc/sysconfig/docker
-  echo "OPTIONS='-b=kbr0 --iptables=false --selinux-enabled -H 0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry=0.0.0.0/0'" >/etc/sysconfig/docker
+  echo "OPTIONS='-b=kbr0 --selinux-enabled -H 0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry jadetest.cn.ibm.com:5000'" >/etc/sysconfig/docker
   systemctl daemon-reload
   systemctl restart docker.service
 
